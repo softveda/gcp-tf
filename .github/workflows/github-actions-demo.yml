@@ -18,21 +18,17 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
       - name: Terraform init
         run: terraform init
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CRED }}
       - name: Terraform format
         run: terraform fmt -check
       - name: Terraform plan
         run: terraform plan
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CRED }}
           TF_VAR_service_account_email: ${{ secrets.TF_VAR_SERVICE_ACCOUNT_EMAIL }}
           TF_VAR_ssh_pub_key: ${{ secrets.TF_VAR_SSH_PUB_KEY }}
       - name: Terraform Apply
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: terraform apply -auto-approve
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CRED }}
           TF_VAR_service_account_email: ${{ secrets.TF_VAR_SERVICE_ACCOUNT_EMAIL }}
           TF_VAR_ssh_pub_key: ${{ secrets.TF_VAR_SSH_PUB_KEY }}
 
