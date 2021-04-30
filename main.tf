@@ -30,12 +30,18 @@ variable "ssh_pub_key" {
 variable "service_account_email" {
   type = string
 }
+
+data "google_compute_image" "disk_image" {
+  project = "ubuntu-os-cloud"
+  family  = "ubuntu-2004-lts"
+}
+
 resource "google_compute_instance" "vm_instance" {
   name         = "vault-01"
   machine_type = "n1-standard-1"
   boot_disk {
     initialize_params {
-      image = "ubuntu-2004-lts/ubuntu-2004-focal-v20210429"
+      image = data.google_compute_image.disk_image.self_link
     }
   }
   metadata = {
