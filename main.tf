@@ -35,7 +35,7 @@ resource "google_compute_instance" "vm_instance" {
   machine_type = "n1-standard-1"
   boot_disk {
     initialize_params {
-      image = "ubuntu/ubuntu-20.04"
+      image = "ubuntu-2004-lts/ubuntu-2004-focal-v20210429"
     }
   }
   metadata = {
